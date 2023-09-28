@@ -1,17 +1,54 @@
 /* eslint-disable react/no-unstable-nested-components */
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { Pressable, useWindowDimensions, View } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { AccountScreen, CartScreen, HomeScreen, MenuScreen } from "../screens";
+import {
+  AccountScreen,
+  CartScreen,
+  DetailsScreen,
+  HomeScreen,
+  MainMenuScreen
+} from "../screens";
 import { colors } from "../constants/colors";
 import { AccountIcon, CartIcon, HomeIcon, MenuIcon } from "../components";
+
+const styles = StyleSheet.create({
+  headerBtn: {
+    alignItems: "center",
+    backgroundColor: colors.white,
+    borderColor: colors.greyDark,
+    borderRadius: 8,
+    height: 36,
+    justifyContent: "center",
+    marginLeft: 16,
+    width: 36
+  }
+});
+
+const { Navigator, Screen } = createNativeStackNavigator();
+function MenuStack() {
+  return (
+    <Navigator>
+      <Screen
+        name="MainMenu"
+        component={MainMenuScreen}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="Details"
+        component={DetailsScreen}
+        options={{ headerShown: false, presentation: "fullScreenModal" }}
+      />
+    </Navigator>
+  );
+}
 
 const Tab = createBottomTabNavigator();
 export default function MainNavigator() {
   const { height } = useWindowDimensions();
-  console.log(0.15 * height);
 
   return (
     <NavigationContainer>
@@ -30,7 +67,7 @@ export default function MainNavigator() {
         />
         <Tab.Screen
           name="Menu"
-          component={MenuScreen}
+          component={MenuStack}
           options={{ tabBarIcon: ({ color }) => <MenuIcon color={color} /> }}
         />
         <Tab.Screen
@@ -38,20 +75,7 @@ export default function MainNavigator() {
           component={CartScreen}
           options={{
             headerLeft: () => (
-              <Pressable
-                onPress={() => true}
-                style={{
-                  height: 36,
-                  width: 36,
-                  borderRadius: 8,
-                  borderColor: colors.greyDark,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: colors.white,
-                  marginLeft: 16
-                  // marginBottom: 16
-                }}
-              >
+              <Pressable onPress={() => true} style={styles.headerBtn}>
                 {({ pressed }) => (
                   <Feather
                     name="chevron-left"
@@ -77,10 +101,3 @@ export default function MainNavigator() {
     </NavigationContainer>
   );
 }
-
-// function TabBarIcon(props: {
-//   name: ReactNode;
-//   color: string;
-// }) {
-//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-// }

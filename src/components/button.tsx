@@ -30,11 +30,19 @@ interface CartButtonProps {
   label: string;
   style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
+  onPress?: () => void;
 }
 
-const CartButton: FC<CartButtonProps> = ({ size, label, style, textStyle }) => {
+const CartButton: FC<CartButtonProps> = ({
+  size,
+  label,
+  style,
+  textStyle,
+  onPress
+}) => {
   return (
     <Pressable
+      onPress={onPress}
       style={[
         styles.container,
         { maxWidth: size === "large" ? undefined : 220 },

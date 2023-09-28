@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export const MenuScreen = () => {
+export const MainMenuScreen = ({ navigation }: any) => {
   const { width } = useWindowDimensions();
 
   return (
@@ -58,8 +58,16 @@ export const MenuScreen = () => {
         numColumns={2}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        bounces={false}
         renderItem={({ item: { img, item, price } }) => {
-          return <MenuCard image={img} itemName={item} {...{ price }} />;
+          return (
+            <MenuCard
+              image={img}
+              itemName={item}
+              {...{ price }}
+              onPress={() => navigation.navigate("Details")}
+            />
+          );
         }}
       />
     </View>

@@ -13,6 +13,7 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     Medium: Poppins_500Medium,
     Regular: Poppins_400Regular,
+    SemiBold: Poppins_600SemiBold,
     Bold: Poppins_600SemiBold
   });
 

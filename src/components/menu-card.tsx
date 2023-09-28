@@ -40,13 +40,15 @@ interface MenuCardProps {
   itemName: string;
   price: number;
   btnLabel?: string;
+  onPress: () => void;
 }
 
 const MenuCard: FC<MenuCardProps> = ({
   image,
   itemName,
   price,
-  btnLabel = "Add to cart"
+  btnLabel = "Add to cart",
+  onPress
 }) => {
   return (
     <View style={styles.container}>
@@ -79,7 +81,7 @@ const MenuCard: FC<MenuCardProps> = ({
         </Text>
       </View>
 
-      <CartButton size="small" label={btnLabel} />
+      <CartButton size="small" label={btnLabel} onPress={onPress} />
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import type { ImageSourcePropType } from "react-native";
+import type { ImageSourcePropType, ViewStyle } from "react-native";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import type { FC } from "react";
@@ -39,9 +39,15 @@ const styles = StyleSheet.create({
 });
 
 type IconName = keyof typeof Feather.glyphMap;
-function AddMinusButton({ iconName }: { iconName: IconName }) {
+export function AddMinusButton({
+  iconName,
+  style
+}: {
+  iconName: IconName;
+  style?: ViewStyle;
+}) {
   return (
-    <View style={styles.btnContainer}>
+    <View style={[styles.btnContainer, style]}>
       <Feather name={iconName} size={16} color={colors.black} />
     </View>
   );

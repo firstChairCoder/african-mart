@@ -32,7 +32,11 @@ const styles = StyleSheet.create({
 export const CartScreen = () => {
   return (
     <View style={styles.container}>
-      <ScrollView style={{ flex: 0.95 }}>
+      <ScrollView
+        style={{ flex: 0.95 }}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
         {cartData.map((order) => {
           return (
             <CartItem
